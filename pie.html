@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Line</title>
+
+</head>
+
+<body>
+    <canvas id="myChart" width="800" height="400"></canvas>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var ctx = document.getElementById('myChart');
+
+        fetch('http://localhost:3000/carrier_analyses')
+        .then(res => res.json())
+        .then(originData => render(originData))
+        .catch(err => console.log(err));
+
+        
+        function render(originData){
+            const dataLables = originData.map( key => Object.values(key)[4]);
+// 
+            const dataContent = originData.map( key => Object.values(key)[1]);
+// 
+            console.log(dataContent);
+            const data = {
+                labels: dataLables,
+                datasets: [{
+                    label: '2019-12-05 ~ 2021-03-31地籍異動累計申請數',
+                    data: dataContent,
+                    backgroundColor: [
+                        'rgb(199, 184, 161)',
+                        'rgb(234, 208, 209)',
+                        'rgb(181, 196, 177)',
+                        'rgb(216, 191, 216)',
+                        'rgb(188, 143, 143)',
+                        'rgb(255, 239, 213)',
+                        'rgb(255, 222, 173)',
+                        'rgb(230, 230, 250)',
+                        'rgb(238, 232, 170)',
+                        'rgb(176, 224, 230)',
+                        'rgb(189, 183, 107)',
+                        'rgb(201, 218, 191)',
+                        'rgb(225, 218, 185)',
+                        'rgb(244, 184, 096)',
+                        'rgb(255, 250, 250)',
+                        'rgb(173, 216, 230)',
+                        'rgb(176, 196, 222)',
+                        'rgb(240, 230, 140)',
+                        'rgb(220, 220, 220)',
+                        'rgb(184, 134, 011)',
+                        'rgb(173, 153, 120)',
+                        'rgb(148, 122, 083)',
+                    ],
+                    hoverOffset: 4
+                }]
+            };
+
+            const config = {
+                type: 'doughnut',
+                data: data,
+                options: {
+                    // maintainAspectRatio: false
+                    aspectRatio: 2
+                },
+            };
+
+
+            const myChart = new Chart(ctx, config)
+        }        
+
+        
+    </script>
+</body>
+
+</html>
