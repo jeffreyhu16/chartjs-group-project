@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
+require('dotenv').config();
 
 app.use(express.json());
 app.use(cors());
@@ -13,7 +14,7 @@ app.use((req, res, next) => {
 
 const MongoClient = require('mongodb').MongoClient;
 // const { ServerApiVersion } = require('mongodb');
-const connectionString = 'mongodb+srv://pomidb:192837@pomi.bdnan.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+const connectionString = process.env.key
 
 MongoClient.connect(connectionString, (err, client) => {
     
